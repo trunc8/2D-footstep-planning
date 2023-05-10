@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+
+# trunc8 did this
+
 import numpy as np
 from utilities import plot_rectangle
 
