@@ -1,80 +1,23 @@
 # python libraries
 import matplotlib.pyplot as plt
 import numpy as np
-# from IPython.display import HTML, display
 
 # increase default size matplotlib figures
 from matplotlib import rcParams
+rcParams["figure.figsize"] = (10, 5)
+
 from matplotlib.animation import FuncAnimation
-from matplotlib.patches import Rectangle
+
 
 # drake imports
 from pydrake.all import MathematicalProgram, OsqpSolver, eq, ge, le
 from pydrake.solvers import MixedIntegerBranchAndBound
 
-rcParams["figure.figsize"] = (10, 5)
 
-class SteppingStone(object):
-    def __init__(self, center, width, height, name=None):
-        # store arguments
-        self.center = center
-        self.width = width
-        self.height = height
-        self.name = name
+# Local file imports
+from SteppingStone import SteppingStone
+from utilities import plot_rectangle
 
-        # distance from center to corners
-        c2tr = np.array([width, height]) / 2
-        c2br = np.array([width, -height]) / 2
-
-        # position of the corners
-        self.top_right = center + c2tr
-        self.bottom_right = center + c2br
-        self.top_left = center - c2br
-        self.bottom_left = center - c2tr
-
-        # halfspace representation of the stepping stone
-        self.A = np.array([[1, 0], [0, 1], [-1, 0], [0, -1]])
-        self.b = np.concatenate([c2tr] * 2) + self.A.dot(center)
-
-    def plot(self, **kwargs):
-        return plot_rectangle(self.center, self.width, self.height, **kwargs)
-
-
-# helper function that plots a rectangle with given center, width, and height
-def plot_rectangle(center, width, height, ax=None, frame=0.1, **kwargs):
-    # make black the default edgecolor
-    if not "edgecolor" in kwargs:
-        kwargs["edgecolor"] = "black"
-
-    # make transparent the default facecolor
-    if not "facecolor" in kwargs:
-        kwargs["facecolor"] = "none"
-
-    # get current plot axis if one is not given
-    if ax is None:
-        ax = plt.gca()
-
-    # get corners
-    c2c = np.array([width, height]) / 2
-    bottom_left = center - c2c
-    top_right = center + c2c
-
-    # plot rectangle
-    rect = Rectangle(bottom_left, width, height, **kwargs)
-    ax.add_patch(rect)
-
-    # scatter fake corners to update plot limits (bad looking but compact)
-    ax.scatter(*bottom_left, s=0)
-    ax.scatter(*top_right, s=0)
-
-    # make axis scaling equal
-    ax.set_aspect("equal")
-
-    return rect
-
-# SteppingStone(np.array([0,0]),10,10).plot()
-# SteppingStone(np.array([11,0]),10,10).plot()
-# plt.show()
 
 class Terrain(object):
     # parametric construction of the stepping stones
