@@ -26,7 +26,8 @@ from constraints import (
     relative_position_limits,
     step_sequence,
     one_stone_per_foot,
-    foot_in_stepping_stone
+    foot_in_stepping_stone,
+    # trim_time_steps
 )
 from cost import minimize_step_length
 
@@ -43,6 +44,7 @@ def footstep_planner(terrain, n_steps, step_span):
     step_sequence(prog, n_steps, step_span, decision_variables)
     one_stone_per_foot(prog, n_steps, decision_variables)
     foot_in_stepping_stone(prog, terrain, n_steps, decision_variables)
+    # trim_time_steps(prog, terrain, n_steps, decision_variables)
 
     # objective function
     minimize_step_length(prog, terrain, n_steps, decision_variables)
@@ -73,6 +75,9 @@ def generate_and_animate_footstep_plan(
 
     end_time = time.time()
 
+
+    # print(decision_variables)
+
     print(f"\n<< Finished solving footstep planning problem in {end_time-start_time:.2f}s\n")
 
     # animate result
@@ -88,9 +93,15 @@ if __name__ == '__main__':
     # one stepping stone missing in the bridge
     terrain_B = Terrain([1, 1, 1, 0])
 
+    terrain_A.plot()
+    plt.show()
+
+    terrain_B.plot()
+    plt.show()
+
     # maximum number of steps to reach the goal
-    # n_steps = 8
-    n_steps = 18
+    n_steps = 8
+    # n_steps = 18
 
     # side of the square that limits each step
     step_span = 0.8
@@ -98,5 +109,5 @@ if __name__ == '__main__':
 
     to_save=False
 
-    generate_and_animate_footstep_plan(terrain_A, n_steps, step_span, "Terrain A", to_save)
-    generate_and_animate_footstep_plan(terrain_B, n_steps, step_span, "Terrain B", to_save)
+    # generate_and_animate_footstep_plan(terrain_A, n_steps, step_span, "Terrain A", to_save)
+    # generate_and_animate_footstep_plan(terrain_B, n_steps, step_span, "Terrain B", to_save)

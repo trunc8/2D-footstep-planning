@@ -17,7 +17,10 @@ def add_decision_variables(prog, terrain, n_steps):
     stone_left = prog.NewBinaryVariables(rows=n_steps + 1, cols=n_stones)
     stone_right = prog.NewBinaryVariables(rows=n_steps + 1, cols=n_stones)
 
-    return position_left, position_right, stone_left, stone_right
+    # # binaries that trim the number of footsteps
+    # trim = prog.NewBinaryVariables(n_steps)
+
+    return position_left, position_right, stone_left, stone_right#, trim
 
 def set_initial_and_goal_position(prog, terrain, decision_variables):
     # unpack only decision variables needed in this function
@@ -29,18 +32,9 @@ def set_initial_and_goal_position(prog, terrain, decision_variables):
     initial_position_left = center
     initial_position_right = center - foot_offset
 
-    # goal position of the feet of the robot
-    center = terrain.get_stone_by_name("goal").center
-    goal_position_left = center
-    goal_position_right = center - foot_offset
-
     # enforce initial position of the feet
     prog.AddLinearConstraint(eq(position_left[0], initial_position_left))
     prog.AddLinearConstraint(eq(position_right[0], initial_position_right))
-
-    # enforce goal position of the feet
-    # prog.AddLinearConstraint(eq(position_left[-1], goal_position_left))
-    # prog.AddLinearConstraint(eq(position_right[-1], goal_position_right))
 
 def relative_position_limits(prog, n_steps, step_span, decision_variables):
     # unpack only decision variables needed in this function
@@ -128,3 +122,31 @@ def foot_in_stepping_stone(prog, terrain, n_steps, decision_variables):
                 )
             )
 
+# def trim_time_steps(prog, terrain, n_steps, decision_variables):
+#     # unpack only decision variables needed in this function
+#     position_left, position_right = decision_variables[:2]
+#     trim = decision_variables[4]
+
+#     A = np.array([[1, 0], [0, 1], [-1, 0], [0, -1]])
+
+#     # initial position of the feet of the robot
+#     foot_offset = np.array([0, 0.2])
+#     center = terrain.get_stone_by_name("initial").center
+#     initial_position_left = center
+#     initial_position_right = center - foot_offset
+
+#     M = get_big_M(terrain)
+
+#     for t in range(1, n_steps+1):        
+#         prog.AddLinearConstraint(
+#             le(
+#                 A.dot(position_left[t]),
+#                 np.concatenate([initial_position_left]*2) + (1-trim[t-1])*M
+#             )
+#         )
+#         prog.AddLinearConstraint(
+#             le(
+#                 A.dot(position_right[t]),
+#                 np.concatenate([initial_position_right]*2) + (1-trim[t-1])*M
+#             )
+#         )

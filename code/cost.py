@@ -7,6 +7,7 @@ import numpy as np
 def minimize_step_length(prog, terrain, n_steps, decision_variables):
     # unpack only decision variables needed in this function
     position_left, position_right = decision_variables[:2]
+    # trim = decision_variables[4]
 
     # goal position of the feet of the robot
     foot_offset = np.array([0, 0.2])
@@ -34,4 +35,11 @@ def minimize_step_length(prog, terrain, n_steps, decision_variables):
             Qr*(position_right[t + 1] - position_right[t]).dot(position_right[t + 1] - position_right[t])
         )
         
+
+    # sum_trim = 0
+    # for t in range(n_steps):
+    #     sum_trim += trim[t]
+
+    # qt = 10000
+    # prog.AddLinearCost(-qt*sum_trim)
     
