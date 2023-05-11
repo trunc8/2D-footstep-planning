@@ -42,7 +42,8 @@ def plot_rectangle(center, width, height, ax=None, frame=0.1, **kwargs):
 def animate_footstep_plan(
     terrain, n_steps, step_span, position_left, position_right, 
     title=None,
-    experiment_attributes=None
+    experiment_attributes=None,
+    to_save=False
 ):
     # initialize figure for animation
     fig, ax = plt.subplots()
@@ -96,5 +97,7 @@ def animate_footstep_plan(
 
     # create ad display animation
     anim = FuncAnimation(fig, animate, frames=n_steps + 1, interval=8e2)
-    # anim.save(f'../results/{title}_{experiment_attributes}.gif', writer='imagemagick', fps=1)
-    plt.show()
+    if to_save:
+        anim.save(f'../results/{title}_{experiment_attributes}.gif', writer='imagemagick', fps=1)
+    else:
+        plt.show()

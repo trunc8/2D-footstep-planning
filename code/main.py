@@ -45,7 +45,7 @@ def footstep_planner(terrain, n_steps, step_span):
     foot_in_stepping_stone(prog, terrain, n_steps, decision_variables)
 
     # objective function
-    minimize_step_length(prog, n_steps, decision_variables)
+    minimize_step_length(prog, terrain, n_steps, decision_variables)
 
     # solve
     bb = MixedIntegerBranchAndBound(prog, OsqpSolver().solver_id())
@@ -62,7 +62,7 @@ def footstep_planner(terrain, n_steps, step_span):
     return decision_variables_opt, objective_opt
 
 def generate_and_animate_footstep_plan(
-    terrain, n_steps, step_span, title=None
+    terrain, n_steps, step_span, title=None, to_save=False
 ):
     start_time = time.time()
 
@@ -76,7 +76,7 @@ def generate_and_animate_footstep_plan(
     print(f"\n<< Finished solving footstep planning problem in {end_time-start_time:.2f}s\n")
 
     # animate result
-    animate_footstep_plan(terrain, n_steps, step_span, *decision_variables[:2], title, f"n_steps={n_steps} step_span={step_span}m")
+    animate_footstep_plan(terrain, n_steps, step_span, *decision_variables[:2], title, f"n_steps={n_steps} step_span={step_span}m", to_save)
 
 
 if __name__ == '__main__':
@@ -89,12 +89,14 @@ if __name__ == '__main__':
     terrain_B = Terrain([1, 1, 1, 0])
 
     # maximum number of steps to reach the goal
-    n_steps = 8
-    # n_steps = 18
+    # n_steps = 8
+    n_steps = 18
 
     # side of the square that limits each step
     step_span = 0.8
     # step_span = 0.42
 
-    generate_and_animate_footstep_plan(terrain_A, n_steps, step_span, "Terrain A")
-    # generate_and_animate_footstep_plan(terrain_B, n_steps, step_span, "Terrain B")
+    to_save=False
+
+    generate_and_animate_footstep_plan(terrain_A, n_steps, step_span, "Terrain A", to_save)
+    generate_and_animate_footstep_plan(terrain_B, n_steps, step_span, "Terrain B", to_save)
