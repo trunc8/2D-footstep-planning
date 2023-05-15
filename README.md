@@ -3,9 +3,7 @@ Implementation of a simplified version of R. Tedrake's [Footstep planning on une
 
 You can read about the technical details underlying my implementation in my [report](report.pdf).
 
-
-## Demo
-![No gap](results/videos/no_gap.mp4)
+The references used while coding this project are listed in the [Appendix](#appendix).
 
 
 ## How to Run
@@ -15,6 +13,12 @@ You can read about the technical details underlying my implementation in my [rep
 1. `python3 code/main.py`
 
 You can find the results in the `results` directory
+
+
+## Demo
+https://github.com/trunc8/2D-footstep-planning/assets/50488330/dc5ede33-2e22-48cb-8de0-5f74269267e9
+
+https://github.com/trunc8/2D-footstep-planning/assets/50488330/2ce20f03-452d-4796-97f6-e080281f2744
 
 
 ## Appendix
