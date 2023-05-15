@@ -4,7 +4,11 @@ Implementation of a simplified version of R. Tedrake's [Footstep planning on une
 You can read about the technical details underlying my implementation in my [report](report.pdf).
 
 
-### How to Run
+## Demo
+![No gap](results/videos/no_gap.mp4)
+
+
+## How to Run
 1. `git clone https://github.com/trunc8/2D-footstep-planning.git`
 1. `cd 2D-footstep-planning`
 1. `pip install -r requirements.txt`
