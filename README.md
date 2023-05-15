@@ -1,13 +1,19 @@
 # 2D-footstep-planning
-Course project for Optimal Control and Reinforcement Learning (16-745)
+Implementation of a simplified version of R. Tedrake's [Footstep planning on uneven terrain with mixed-integer convex optimization](https://ieeexplore.ieee.org/document/7041373)
+
+You can read about the technical details underlying my implementation in my [report](report.pdf).
 
 
-
-
-
+### How to Run
+1. `git clone https://github.com/trunc8/2D-footstep-planning.git`
+1. `cd 2D-footstep-planning`
+1. `pip install -r requirements.txt`
+1. `python3 code/main.py`
 
 You can find the results in the `results` directory
 
+
+## Appendix
 ### Literature References
 - Footstep Planning on Uneven Terrain with Mixed-Integer Convex Optimization:
   https://groups.csail.mit.edu/robotics-center/public_papers/Deits14a.pdf
@@ -23,7 +29,7 @@ You can find the results in the `results` directory
   https://github.com/trunc8/multirobot-efficient-search-path-planning
 
 
-### Author(s)
+## Author(s)
 
 * **Siddharth Saha** - [trunc8](https://github.com/trunc8)
 
