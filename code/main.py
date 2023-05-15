@@ -75,9 +75,6 @@ def generate_and_animate_footstep_plan(
 
     end_time = time.time()
 
-
-    # print(decision_variables)
-
     print(f"\n<< Finished solving footstep planning problem in {end_time-start_time:.2f}s\n")
 
     # animate result
@@ -93,11 +90,11 @@ if __name__ == '__main__':
     # one stepping stone missing in the bridge
     terrain_B = Terrain([1, 1, 1, 0])
 
-    terrain_A.plot()
-    plt.show()
+    # terrain_A.plot()
+    # plt.show()
 
-    terrain_B.plot()
-    plt.show()
+    # terrain_B.plot()
+    # plt.show()
 
     # maximum number of steps to reach the goal
     n_steps = 8
@@ -109,5 +106,5 @@ if __name__ == '__main__':
 
     to_save=False
 
-    # generate_and_animate_footstep_plan(terrain_A, n_steps, step_span, "Terrain A", to_save)
-    # generate_and_animate_footstep_plan(terrain_B, n_steps, step_span, "Terrain B", to_save)
+    generate_and_animate_footstep_plan(terrain_A, n_steps, step_span, "Terrain A", to_save)
+    generate_and_animate_footstep_plan(terrain_B, n_steps, step_span, "Terrain B", to_save)
